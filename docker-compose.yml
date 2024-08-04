@@ -7,6 +7,8 @@ services:
     command: npm run start:dev reservations
     ports:
       - '3000:3000'
+    env_file:
+      - ./apps/reservations/.env
     volumes:
       - .:/urs/src/app
   auth:
