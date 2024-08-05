@@ -1,4 +1,4 @@
-FROM node:20 as development
+FROM node:20-alpine as development
 
 WORKDIR /usr/src/app
 
@@ -12,7 +12,7 @@ COPY . .
 
 RUN pnpm run build
 
-FROM node:20 as production
+FROM node:20-alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
