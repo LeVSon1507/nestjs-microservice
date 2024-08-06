@@ -20,8 +20,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
   await app.startAllMicroservices();
-  const PORT = await configService.get('HTTP_PORT');
-  await app.listen(PORT);
-  console.log(`Auth service is running on: http://localhost:${PORT}`);
+  await app.listen(configService.get('HTTP_PORT'));
 }
 bootstrap();

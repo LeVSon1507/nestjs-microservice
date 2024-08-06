@@ -1,9 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { ReservationsModule } from './reservations.module';
 import { ValidationPipe } from '@nestjs/common';
-import { Logger } from 'nestjs-pino';
-import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+import * as cookieParser from 'cookie-parser';
+import { Logger } from 'nestjs-pino';
+
+import { ReservationsModule } from './reservations.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(ReservationsModule);
@@ -11,8 +12,6 @@ async function bootstrap() {
   app.useLogger(app.get(Logger));
   app.use(cookieParser());
   const configService = app.get(ConfigService);
-  const PORT = await configService.get('PORT');
-  await app.listen(PORT);
-  console.log(`Reservations service is running on: http://localhost:${PORT}`);
+  await app.listen(configService.get('PORT'));
 }
 bootstrap();
